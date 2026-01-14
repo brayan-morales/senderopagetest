@@ -45,6 +45,21 @@
       <a-entity id="trilobites1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Mes_amonites.patt" id="markerAmmonites">
+      <a-entity id="ammonites1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Mes_archelon.patt" id="markerArchelon">
+      <a-entity id="archelon1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Bison Priscus.patt" id="markerBisonPriscus">
+      <a-entity id="bisonPriscus" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
+    </a-marker>
+
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Phantera spelaea.patt" id="markerPhanteraSpelaea">
+      <a-entity id="phanteraSpelaea" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
+    </a-marker>
     <!-- Cámara con cursor/raycaster -->
     <a-entity camera
               cursor="fuse: false; rayOrigin: mouse;"
@@ -60,7 +75,11 @@
       planetCollision: { path: 'modelos/planet collision 3d model.glb', entity: 'collisionPlanetKodel', marker: 'markerCollisionPlanet' },
       earlyArchean: { path: 'modelos/space planet 3d model.glb', entity: 'earlyArcheanKodel', marker: 'markerEarlyArchean' },
       mammoth: { path: 'modelos/woolly mammoth 3d model.glb', entity: 'mammoth1', marker: 'markerMammoth' },
-      trilobites: { path: 'modelos/pill bug 3d model.glb', entity: 'trilobites1', marker: 'markerTrilobites' }
+      trilobites: { path: 'modelos/pill bug 3d model.glb', entity: 'trilobites1', marker: 'markerTrilobites' },
+      ammonites: { path: 'modelos/ammonite shell 3d model.glb', entity: 'ammonites1', marker: 'markerAmmonites' },
+      archelon: { path: 'modelos/sea turtle 3d model.glb', entity: 'archelon1', marker: 'markerArchelon'},
+      bison: { path: 'modelos/steppe bison 3d model.glb', entity: 'bisonPriscus', marker: 'markerBisonPriscus'},
+      phantera: { path: 'modelos/panthera fossilis 3d model.glb', entity: 'phanteraSpelaea', marker: 'markerPhanteraSpelaea'}
     };
 
     const loadedModels = {};
