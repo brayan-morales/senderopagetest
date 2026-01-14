@@ -17,120 +17,44 @@
   <a-scene
     maxFPS="30"
     arjs="detectionMode: mono; sourceType: webcam; debugUIEnabled: false; sourceWidth: 640; sourceHeight: 480; displayWidth: 640; displayHeight: 480;"
-    embedded 
-    renderer="logarithmicDepthBuffer: true; precision: medium; antialias: false; powerPreference: low-power;" 
-    vr-mode-ui="enabled: false" 
-    gesture-detector 
+    embedded
+    renderer="logarithmicDepthBuffer: true; precision: medium; antialias: false; powerPreference: low-power;"
+    vr-mode-ui="enabled: false"
+    gesture-detector
     id="scene"
   >
 
-    <!-- Modelos y recursos -->
-    <a-assets>
-    </a-assets>
-
-    <!-- Marcador -->
-    <a-marker 
-        type="pattern"
-        preset="custom" 
-        url="marcadores/pattern-11. Pre_Proterozoic_Snowballearth.patt"
-        raycaster="objects: .clickable" 
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;" 
-        id="markerIcePlanet"
-    >
-
-      <!-- Modelo con rotación táctil en eje X -->
-      <a-entity id="icePlanetKodel"
-                position="0 0.1 0"
-                scale="1 1 1"
-                class="clickable">
-      </a-entity>
+    <!-- Marcadores con entidades -->
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-11. Pre_Proterozoic_Snowballearth.patt" id="markerIcePlanet">
+      <a-entity id="icePlanetKodel" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <!-- Marcador -->
-    <a-marker 
-        type="pattern"
-        preset="custom" 
-        url="marcadores/pattern-3.Pre_Hádico_creaciónluna.patt"
-        raycaster="objects: .clickable" 
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;" 
-        id="markerCollisionPlanet"
-    >
-
-      <!-- Modelo con rotación táctil en eje X -->
-      <a-entity id="collisionPlanetKodel"
-                position="0 0.1 0"
-                scale="1 1 1"
-                class="clickable">
-      </a-entity>
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-3.Pre_Hádico_creaciónluna.patt" id="markerCollisionPlanet">
+      <a-entity id="collisionPlanetKodel" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <!-- Marcador -->
-    <a-marker 
-        type="pattern"
-        preset="custom" 
-        url="marcadores/pattern-5.-Pre_EarlyArchean.patt"
-        raycaster="objects: .clickable" 
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;" 
-        id="markerEarlyArchean"
-    >
-
-      <!-- Modelo con rotación táctil en eje X -->
-      <a-entity id="earlyArcheanKodel"
-                position="0 0.1 0"
-                scale="1 1 1"
-                class="clickable">
-      </a-entity>
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-5.-Pre_EarlyArchean.patt" id="markerEarlyArchean">
+      <a-entity id="earlyArcheanKodel" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <!-- Marcador -->
-    <a-marker 
-        type="pattern"
-        preset="custom" 
-        url="marcadores/pattern-Mammuthus primigenius.patt"
-        raycaster="objects: .clickable" 
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;" 
-        id="markerMammoth"
-    >
-
-      <!-- Modelo con rotación táctil en eje X -->
-      <a-entity id="mammoth1"
-                position="0 0.1 0"
-                scale="1 1 1"
-                class="clickable">
-      </a-entity>
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Mammuthus primigenius.patt" id="markerMammoth">
+      <a-entity id="mammoth1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <!-- Marcador -->
-    <a-marker 
-        type="pattern"
-        preset="custom" 
-        url="marcadores/pattern-2.Paleo-Cámbrico-trilobites_paisajesubmarino.patt"
-        raycaster="objects: .clickable" 
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;" 
-        id="markerTrilobites"
-    >
-
-      <!-- Modelo con rotación táctil en eje X -->
-      <a-entity id="trilobites1"
-                position="0 0.1 0"
-                scale="1 1 1"
-                class="clickable">
-      </a-entity>
+    <a-marker type="pattern" preset="custom" url="marcadores/pattern-2.Paleo-Cámbrico-trilobites_paisajesubmarino.patt" id="markerTrilobites">
+      <a-entity id="trilobites1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <!-- Cámara -->
-    <a-entity camera></a-entity>
+    <!-- Cámara con cursor/raycaster -->
+    <a-entity camera
+              cursor="fuse: false; rayOrigin: mouse;"
+              raycaster="objects: .clickable"
+              emitevents="true">
+    </a-entity>
 
   </a-scene>
 
-  <!-- Script de carga bajo demanda (lazy loading) -->
   <script>
-    // Configuración de modelos - cada marcador tiene su modelo asociado
     const modelConfig = {
       icePlanet: { path: 'modelos/ice planet 3d model.glb', entity: 'icePlanetKodel', marker: 'markerIcePlanet' },
       planetCollision: { path: 'modelos/planet collision 3d model.glb', entity: 'collisionPlanetKodel', marker: 'markerCollisionPlanet' },
@@ -139,54 +63,33 @@
       trilobites: { path: 'modelos/pill bug 3d model.glb', entity: 'trilobites1', marker: 'markerTrilobites' }
     };
 
-    const loadedModels = {}; // Controla qué modelos ya se cargaron
-    const loadingModels = {}; // Controla qué modelos están cargando ahora
+    const loadedModels = {};
 
-    // Función para cargar un modelo cuando se necesita
     function loadModel(modelKey) {
-      if (loadedModels[modelKey] || loadingModels[modelKey]) return; // Ya cargado o cargando
-      
-      loadingModels[modelKey] = true;
+      if (loadedModels[modelKey]) return;
       const config = modelConfig[modelKey];
       const entity = document.getElementById(config.entity);
-      
-      if (!entity) {
-        delete loadingModels[modelKey];
-        return;
-      }
-      
+
       entity.setAttribute('gltf-model', config.path);
-      
-      setTimeout(function() {
-        if (!loadedModels[modelKey]) {
-          loadedModels[modelKey] = true;
-          delete loadingModels[modelKey];
-        }
-      }, 2000);
-      
-      entity.addEventListener('model-loaded', function() {
+
+      entity.addEventListener('model-loaded', () => {
         loadedModels[modelKey] = true;
-        delete loadingModels[modelKey];
-      }, {once: true}); 
-      
-      entity.addEventListener('model-error', function(err) {
-        delete loadingModels[modelKey];
-      }, {once: true});
+        // Activar gestos directamente en el modelo
+        entity.setAttribute('gesture-handler', 'minScale: 0.5; maxScale: 3');
+        entity.classList.add('clickable');
+      }, { once: true });
 
-      entity.addEventListener('model-loaded', function () {
-        entity.setAttribute('gesture-handler', '');
-      });
-
+      entity.addEventListener('model-error', () => {
+        console.error("Error cargando modelo:", config.path);
+      }, { once: true });
     }
 
-    document.querySelector('a-scene').addEventListener('loaded', function() {
-      Object.keys(modelConfig).forEach(function(modelKey) {
+    document.querySelector('a-scene').addEventListener('loaded', () => {
+      Object.keys(modelConfig).forEach(modelKey => {
         const config = modelConfig[modelKey];
         const marker = document.getElementById(config.marker);
-        
-        if (!marker) return;
-        
-        marker.addEventListener('markerFound', function() {
+
+        marker.addEventListener('markerFound', () => {
           loadModel(modelKey);
         });
       });
