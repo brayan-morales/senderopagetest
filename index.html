@@ -61,23 +61,23 @@
       <a-entity id="phanteraSpelaea" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <a-marker type="pattern" preset="custom" url="marcadores/pattern-8. Pre_Proterozoic_Anomalacaris.patt" id="markerAnomalacaris">
+    <a-marker type="pattern" preset="custom" url="pattern-8. Pre_Proterozoic_Anomalacaris.patt" id="markerAnomalacaris">
       <a-entity id="anomalacaris1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Mes_cicadas.patt" id="markerCycadaceae">
+    <a-marker type="pattern" preset="custom" url="pattern-Mes_cicadas.patt" id="markerCycadaceae">
       <a-entity id="cycadaceae1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <a-marker type="pattern" preset="custom" url="marcadores/pattern-5.Paleo-Carbonífero-libelulagigante.patt" id="markerLibelula">
+    <a-marker type="pattern" preset="custom" url="pattern-5.Paleo-Carbonífero-libelulagigante.patt" id="markerLibelula">
       <a-entity id="libelula1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
     
-    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Equus Lambei.patt" id="markerHorse">
+    <a-marker type="pattern" preset="custom" url="pattern-Equus Lambei.patt" id="markerHorse">
       <a-entity id="horse1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
 
-    <a-marker type="pattern" preset="custom" url="marcadores/pattern-Paleo-Devónico-fauna-marina.patt" id="markerFaunaMarina">
+    <a-marker type="pattern" preset="custom" url="pattern-Paleo-Devónico-fauna-marina.patt" id="markerFaunaMarina">
       <a-entity id="faunaMarina1" position="0 0.1 0" scale="1 1 1" class="clickable"></a-entity>
     </a-marker>
     <!-- Cámara con cursor/raycaster -->
@@ -88,7 +88,6 @@
     </a-entity>
 
   </a-scene>
-
   <script>
     const modelConfig = {
       icePlanet: { path: 'modelos/ice planet 3d model.glb', entity: 'icePlanetKodel', marker: 'markerIcePlanet' },
@@ -114,13 +113,16 @@
       const config = modelConfig[modelKey];
       const entity = document.getElementById(config.entity);
 
+      // Activar gestos desde el inicio
+      entity.setAttribute('gesture-handler', 'minScale: 0.5; maxScale: 3');
+      entity.classList.add('clickable');
+
+      // Cargar modelo
       entity.setAttribute('gltf-model', config.path);
 
       entity.addEventListener('model-loaded', () => {
         loadedModels[modelKey] = true;
-        // Activar gestos directamente en el modelo
-        entity.setAttribute('gesture-handler', 'minScale: 0.5; maxScale: 3');
-        entity.classList.add('clickable');
+        entity.setAttribute('visible', 'true');
       }, { once: true });
 
       entity.addEventListener('model-error', () => {
@@ -132,9 +134,18 @@
       Object.keys(modelConfig).forEach(modelKey => {
         const config = modelConfig[modelKey];
         const marker = document.getElementById(config.marker);
+        const entity = document.getElementById(config.entity);
+
+        // Inicialmente invisible
+        entity.setAttribute('visible', 'false');
 
         marker.addEventListener('markerFound', () => {
           loadModel(modelKey);
+          entity.setAttribute('visible', 'true');
+        });
+
+        marker.addEventListener('markerLost', () => {
+          entity.setAttribute('visible', 'false');
         });
       });
     });
